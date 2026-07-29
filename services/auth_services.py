@@ -1,7 +1,7 @@
 from schemas.auth_schema import RegisterRequest,LoginRequest
 from sqlalchemy.orm import Session
 from models.users import User
-from fastapi import HTTPException
+from fastapi import HTTPException,Request
 from utils.password import hashpass,verify_pass
 from core.config import settings
 from datetime import datetime, timedelta
@@ -55,9 +55,31 @@ def login_service(body:LoginRequest,db:Session):
     algorithm=settings.ALGORITHM
 )
 
-    return {"token":token,"message":"login succesfully..."}
+    return {"access_token":token,"message":"login succesfully..."}
 
-    
+def auth_service(request:Request,db:Session):
+    print("All Cookies:", request.cookies)
+
+    token=request.cookies.get("access_token")
+
+    if not token:
+        raise HTTPException(status_code=400,detail="No token...")
+
+    payload =jwt.decode(token,settings.SECRET_KEY,algorithms=[settings.ALGORITHM])
+
+    user_id=payload["_id"]
+
+    user=db.query(User).filter(User.id==user_id).first()
+
+    if not user:
+        raise HTTPException(status_code=400,detail="No user exist...")
+
+    return{
+        "id":user.id,
+        "name":user.name,
+        "email":user.email
+    }
+
 
 
 
