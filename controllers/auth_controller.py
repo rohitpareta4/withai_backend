@@ -18,7 +18,8 @@ def login(body:LoginRequest,response:Response,db:Session):
         value=data["access_token"],
         httponly=True,
         secure=False,
-        samesite="lax"
+        samesite="lax",
+        max_age=60*60*24*3
     )
 
     return {

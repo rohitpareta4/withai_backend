@@ -42,12 +42,20 @@ def login_service(body:LoginRequest,db:Session):
     if not password_verify:
         raise HTTPException(status_code=400,detail="password is invalid....")
 
+#     payload = {
+#     "_id": email_exist.id,
+#     "exp": datetime.utcnow() + timedelta(
+#         minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
+#     )
+# }
+
     payload = {
     "_id": email_exist.id,
     "exp": datetime.utcnow() + timedelta(
-        minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
+        days=settings.ACCESS_TOKEN_EXPIRE_DAYS
     )
 }
+
 
     token = jwt.encode(
     payload,
