@@ -14,13 +14,14 @@ def login(body:LoginRequest,response:Response,db:Session):
     # data.access_token
 
     response.set_cookie(
-        key="access_token",
-        value=data["access_token"],
-        httponly=True,
-        secure=False,
-        samesite="lax",
-        max_age=60*60*24*3
-    )
+    key="access_token",
+    value=data["access_token"],
+    httponly=True,
+    secure=True,
+    samesite="none",
+    max_age=60 * 60 * 24 * 3,
+    path="/",
+)
 
     return {
         "message": data["message"]
