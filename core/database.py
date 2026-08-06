@@ -1,7 +1,21 @@
+# from sqlalchemy import create_engine
+# from sqlalchemy.orm import declarative_base
+# from core.config import settings
+
+# engine=create_engine(settings.DATABASE_URL,echo=True)
+
+# Base=declarative_base()
+
 from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import declarative_base, sessionmaker
 from core.config import settings
 
-engine=create_engine(settings.DATABASE_URL,echo=True)
+engine = create_engine(
+    settings.DATABASE_URL,
+    connect_args={"ssl": {}},
+    pool_pre_ping=True,
+    echo=True
+)
 
-Base=declarative_base()
+
+Base = declarative_base()
