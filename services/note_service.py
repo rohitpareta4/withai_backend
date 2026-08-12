@@ -8,7 +8,8 @@ from fastapi import HTTPException
 def addNote_service(body:CreateNote,user:User,db:Session):
       new_note = Note(
         user_id=user.id,
-        note=body.note
+        note=body.note,
+        title=body.title
     )
 
       db.add(new_note)

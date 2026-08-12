@@ -21,3 +21,8 @@ class Note(Base):
         String(10000),
         nullable=False
     )
+
+    title = Column(
+            String(100),
+            nullable=False
+        )

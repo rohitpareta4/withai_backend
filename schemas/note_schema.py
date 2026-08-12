@@ -6,3 +6,8 @@ class CreateNote(BaseModel):
         str,
         Field(..., description="note is required")
     ]
+
+    title: Annotated[
+            str,
+            Field(..., description="title is required")
+        ]
