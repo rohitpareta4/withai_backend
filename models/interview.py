@@ -67,4 +67,11 @@ class Interview(Base):
     )
 
 
+class GithubInterview(Base):
+    __tablename__ = "GithubInterview"
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("userinfo.id"))
+    github_url = Column(String, nullable=False)
+
 

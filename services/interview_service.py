@@ -1,4 +1,4 @@
-from schemas.interview_schema import Interview_create
+from schemas.interview_schema import Interview_create,git_create
 from sqlalchemy.orm import Session
 from models.users import User
 from models.interview import Interview
@@ -44,5 +44,8 @@ def getdetails_service(interview_id:int,user:User,db:Session):
 
 
      return interview;
+
+def git_service(body:git_create,user:User,db:Session):
+    
 
     

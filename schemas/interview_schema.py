@@ -1,4 +1,4 @@
-from pydantic import BaseModel,Field
+from pydantic import BaseModel,Field,HttpUrl
 from typing import Annotated,Dict,List
 
 class Interview_create(BaseModel):
@@ -14,3 +14,7 @@ class Interview_create(BaseModel):
         int,
         Field(..., gt=0)
     ]
+
+
+class git_create(BaseModel):
+    github_url:Annotated[HttpUrl,Field(...,description="url is req...")]
