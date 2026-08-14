@@ -72,6 +72,6 @@ class GithubInterview(Base):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("userinfo.id"))
-    github_url = Column(String, nullable=False)
+    github_url = Column(String(500), nullable=False)
 
 
