@@ -30,5 +30,39 @@ def getNote_service(user:User,db:Session):
 
       return Takenotes
 
+
+def deleteNote_service(id:int,user:User,db:Session):
+     note=db.query(Note).filter(Note.user_id==user.id,Note.id==id).first()
+
+     if not note:
+      raise HTTPException(
+        status_code=404,
+        detail="Note not found"
+    )
+
+     db.delete(note) 
+     db.commit()
+
+     return {"message": "Note deleted successfully"}
+
+
+def editNote_service(id:int,body:CreateNote,user:User,db:Session):
+    getNote=db.query(Note).filter(Note.user_id==user.id,Note.id==id).first()
+
+    if not getNote:
+        raise HTTPException(
+            status_code=404,
+            detail="Note not found"
+        )
+
+    getNote.title=body.title
+    getNote.note=body.note
+
+    db.commit()
+    db.refresh(getNote)
+
+    return getNote
+     
+
     
 
