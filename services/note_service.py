@@ -21,6 +21,10 @@ def addNote_service(body:CreateNote,user:User,db:Session):
 def getNote_service(user:User,db:Session):
       Takenotes=db.query(Note).filter(Note.user_id==user.id).all()
 
+      print("NOTES FROM DB:")
+      for n in Takenotes:
+        print(n.id, n.title, n.note)
+
       if not Takenotes:
             raise HTTPException(status_code=400,detail="notes are not exist")
 
