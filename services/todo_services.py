@@ -25,6 +25,14 @@ def getTdodo_service(user:User,db:Session):
     if not todos:
         raise HTTPException(status_code=400,detail="user is not exist")
 
+    for todo in todos:
+        print("========== TODO ==========")
+        print("ID:", todo.id)
+        print("TITLE:", todo.title)
+        print("CREATED AT:", todo.createdAt)
+        print("DICT:", todo.__dict__)
+
+
     return todos
 
 def updateCompleted_service(id:int,body:CompletedUpdateitem,user:User,db:Session):
