@@ -7,7 +7,9 @@ class Settings(BaseSettings):
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_DAYS: int
     GROQ_API_KEY:str
-    GITHUB_TOKEN:str
+    # GITHUB_TOKEN:str
+
+    GITHUB_TOKEN: str | None = None
 
     model_config = SettingsConfigDict(
         env_file=".env",
