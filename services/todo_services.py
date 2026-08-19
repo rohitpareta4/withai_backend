@@ -2,7 +2,8 @@ from sqlalchemy.orm import Session
 from schemas.todo_schema import TodoItems,CompletedUpdateitem,titleUpdateitem
 from models.todo import Todo
 from models.users import User
-from fastapi import HTTPException
+from fastapi import HTTPException,Request
+from core.auth import get_curr_user
 
 
 def add_service(body:TodoItems,user:User,db:Session):
@@ -105,6 +106,26 @@ def updateTitle_service(id:int,body:titleUpdateitem,user:User,db:Session):
     db.refresh(store)
 
     return store
+
+def get_incompleteTodos(id:int,db:Session):
+    
+
+    todoByid=db.query(Todo).filter(Todo.user_id==id).all()
+
+    incompleted_todo=[]
+
+    for x in todoByid:
+        if(x.completed==False):
+            incompleted_todo.append(x.title)
+
+    return incompleted_todo
+
+
+
+
+
+
+
             
 
 
